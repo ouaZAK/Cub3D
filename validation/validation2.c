@@ -6,11 +6,12 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 08:56:52 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/13 14:57:32 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:54:07 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
 void	init_cub3D(t_cub3D *cb)
 {
 	cb->joined_map = NULL;
@@ -24,10 +25,10 @@ void	init_cub3D(t_cub3D *cb)
 	cb->colors[C].bol = 0;
 	cb->p = 0;
 	cb->nl = 0;
-	cb->s2[0] = "NO";
-	cb->s2[1] = "SO";
-	cb->s2[2] = "WE";
-	cb->s2[3] = "EA";
+	cb->EWSN[0] = "NO";
+	cb->EWSN[1] = "SO";
+	cb->EWSN[2] = "WE";
+	cb->EWSN[3] = "EA";
 }
 
 void	ft_to_space(char *str)
@@ -86,19 +87,22 @@ int	compare(t_cub3D *cb)
 	{
 		j = 0;
 		k = 0;
-		while (cb->cnt[0][j] && cb->cnt[0][j] == cb->s2[i][k])
+		while (cb->cnt[0][j] && cb->cnt[0][j] == cb->EWSN[i][k])
 		{
 			j++;
 			k++;
 		}
-		if (!cb->cnt[0][j] && !cb->s2[i][k])
+		if (!cb->cnt[0][j] && !cb->EWSN[i][k])
 		{
 			cb->text[i].bol++;
 			cb->map_bol++;
 			if (cb->text[i].bol != 1)
 				return (1);
 			else
+			{
+				printf("i[%d]>>>adrr[%p]>>>>{%s}\n",i,cb->cnt[1],cb->cnt[1]);
 				cb->text[i].path = ft_strdup(cb->cnt[1]);
+			}
 			return (0);
 		}
 	}
@@ -112,7 +116,7 @@ int	compare(t_cub3D *cb)
 // 	test_valid_map(map);
 // 	if (!find_path_map(map->map2))
 // 		handl_errors(8);
-// 	ft_free_float(map->map2);
+// 	ft_free_double(map->map2);
 // 	map->player = ft_location(map, 'P');
 // 	map->exit = ft_location(map, 'E');
 // }
@@ -124,10 +128,10 @@ int	compare(t_cub3D *cb)
 // 	s = ft_split(v, '.');
 // 	if (!s || !s[0] || !s[1] || s[2] || ft_cmp(s[1], "ber"))
 // 	{
-// 		ft_free_float(s);
+// 		ft_free_double(s);
 // 		handl_errors(10);
 // 	}
-// 	ft_free_float(s);
+// 	ft_free_double(s);
 // }
 
 // t_loc	ft_location(t_map *m, char c)

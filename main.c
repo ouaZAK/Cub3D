@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 07:31:06 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/11 16:23:43 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:43:50 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void    testing(t_cub3D *cb)
 	// printf("width = %d\n", cb->map.width);
 	cb->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT , "cub3D", false);
 	cb->img = mlx_new_image(cb->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!cb->img)
-		handl_errors(2);
+	cb->img2 = mlx_new_image(cb->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	mlx_image_to_window(cb->mlx, cb->img, 0, 0);
-// Convert texture to a displayable image
-	// mlx_image_t* img = mlx_texture_to_image(cb->mlx, cb->text[1].texture);
-	// if (!img)
-    //     handl_errors(1);
+	mlx_image_to_window(cb->mlx, cb->img2, 0, 0);
+	// map(cb);
+	
 	mlx_loop_hook(cb->mlx, ft_hook, cb);
 	mlx_loop_hook(cb->mlx, test, cb);
+	// mlx_loop_hook(cb->mlx, walls, cb);
+	// mlx_loop_hook(cb->mlx, map, cb);
 	mlx_loop(cb->mlx);
 }
 
@@ -41,7 +41,6 @@ int main(int ac, char **av)
 	if (cb.fd == -1 || check_parameters(av[1]) == 0 || check_content(&cb))
 		handl_errors(6);
 	testing(&cb);
-
 //copy maptmp to stack map but its not good 
 	// int a;
 	// int b;
@@ -75,7 +74,7 @@ int main(int ac, char **av)
 	// 	y++;
 	// }
 	// *cb.map.map[a] = '\0';
-	// ft_free_float(cb.map.map_tmp);
-	// system("leaks cub3D");
+	// ft_free_double(cb.map.map_tmp);
+	// system("leaks -q cub3D");
 	return 0;
 }

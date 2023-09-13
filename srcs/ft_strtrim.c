@@ -1,53 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 20:23:14 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/13 14:52:54 by zouaraqa         ###   ########.fr       */
+/*   Created: 2023/09/13 09:56:35 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/09/13 14:47:16 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "srcs.h"
 
-char	*ft_strdup(const char	*s1)
+int	check(char c, char *set)
 {
-	char	*s;
-	char	*ptr;
-	int		i;
+	size_t	i;
 
 	i = 0;
-	s = (char *)s1;
-	ptr = (char *)malloc(ft_strlen(s) + 1);
-	if (!ptr)
-		return (0);
-	while (s[i])
+	while (set[i])
 	{
-		ptr[i] = s[i];
+		if (set[i] == c)
+			return (1);
 		i++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
+	return (0);
 }
 
-int	ft_cmp(const char *s1, const char *s2)
+char	*ft_strtrim(char *s1, char *set)
 {
-	int	i;
+	char	*sub;
+	int		s1len;
+	int		i;
 
+	if (!s1 || !set)
+		return (NULL);
 	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
+	s1len = ft_strlen(s1) - 1;
+	while (s1[i] && check(s1[i], set))
 		i++;
-	return (s1[i] - s2[i]);
-}
-
-void	ft_free_double(char **p)
-{
-	int	i;
-
-	i = 0;
-	while (p[i])
-		free(p[i++]);
-	free(p);
+	while (s1[s1len] && s1len > i && check(s1[s1len], set))
+		s1len--;
+	sub = ft_substr(s1, i, (s1len - i + 1));
+	// printf("sub [%p]  <%s>\n",sub, sub);
+	// free(s1);
+	return (sub);
 }

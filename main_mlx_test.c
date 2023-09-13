@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 07:46:22 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/09 12:33:36 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:15:39 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void ft_randomize(void* param)
 	}
 }
 
-void hook(void* param)
+void ft_ho(void* param)
 {
 	mlx_t* mlx = param;
 
@@ -87,7 +87,7 @@ int32_t main(int32_t argc, const char* argv[])
 	}
 	
 	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, hook, mlx);
+	mlx_loop_hook(mlx, ft_ho, mlx);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

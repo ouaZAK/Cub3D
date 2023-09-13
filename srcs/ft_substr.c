@@ -1,53 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 20:23:14 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/13 14:52:54 by zouaraqa         ###   ########.fr       */
+/*   Created: 2023/09/13 09:55:13 by zouaraqa          #+#    #+#             */
+/*   Updated: 2023/09/13 11:03:23 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "srcs.h"
 
-char	*ft_strdup(const char	*s1)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	char	*s;
-	char	*ptr;
-	int		i;
+	size_t	i;
+	char	*str;
 
 	i = 0;
-	s = (char *)s1;
-	ptr = (char *)malloc(ft_strlen(s) + 1);
-	if (!ptr)
+	if (!s || start >= ft_strlen(s))
+		return (NULL);
+	str = (char *)malloc(sizeof(char) * len + 1);
+	if (!str)
 		return (0);
-	while (s[i])
+	while (s[start] && i < len)
 	{
-		ptr[i] = s[i];
+		str[i] = s[start];
 		i++;
+		start++;
 	}
-	ptr[i] = '\0';
-	return (ptr);
-}
-
-int	ft_cmp(const char *s1, const char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
-
-void	ft_free_double(char **p)
-{
-	int	i;
-
-	i = 0;
-	while (p[i])
-		free(p[i++]);
-	free(p);
+	str[i] = '\0';
+	return (str);
 }

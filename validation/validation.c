@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 08:57:01 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/13 14:58:08 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:40:37 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,23 @@ void	check_valid_map(t_cub3D *cb)
 	}
 }
 
+void load_text(t_cub3D *cb)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		printf("i <%d> [%s]\n",i,cb->text[i].path);
+		cb->text[i].txtr = mlx_load_png(cb->text[i].path);
+		if (!cb->text[i].txtr)
+		{
+			// free(cb->cnt);
+			// free(cb->cnt[0]);
+			handl_errors(1);
+		}
+	}
+}
 
 int	check_content(t_cub3D *cb)
 {
@@ -139,15 +156,18 @@ int	check_content(t_cub3D *cb)
 	{
 		if (fill_type(cb))
 		{
-			printf("im here check inside if fill_type\n");
 			free(cb->line);
 			handl_errors(6);
 		}
 		free(cb->line);
 		cb->line = get_next_line(cb->fd);
 	}
-	// close(cb->fd);
+	close(cb->fd);
+	printf("-----------------out---------------\n");
+	printf("cnt 0 [%p]  <%s>\n",cb->line, cb->line);
 	free(cb->line);
+	printf("-----------------out---------------\n");
+	load_text(cb);
 	check_bol(cb);
 	check_repeat(cb);
 	cb->map.map_tmp = ft_split(cb->joined_map, '\n');
@@ -155,7 +175,6 @@ int	check_content(t_cub3D *cb)
 	check_valid_map(cb);
 	return (0);
 }
-
 
 // void init_cub3D(t_cub3D *cb)
 // {
