@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 06:47:35 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/11 16:05:55 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:00:18 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_map
 }				t_map;
 typedef struct s_texture
 {
-	mlx_texture_t	*texture;
+	mlx_texture_t	*txtr;
 	mlx_image_t		*img;
 	char			*path;
 	int				bol;

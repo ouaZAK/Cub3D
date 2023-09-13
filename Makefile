@@ -1,6 +1,6 @@
 SRCS = main.c ./srcs/ft_strjoin.c ./srcs/error.c ./srcs/ft_atoi.c ./srcs/ft_itoa.c ./srcs/ft_printf.c ./srcs/ft_split.c ./srcs/ft_strdup.c \
 	./srcs/get_next_line.c ./srcs/get_next_line_utils.c ./validation/validation.c ./validation/validation2.c \
-	./validation/validation3.c ./validation/fill_type.c ./config/p_move.c ./config/drawing.c
+	./validation/validation3.c ./validation/fill_type.c ./config/p_move.c ./config/drawing.c ban.c
 
 SRCS_TEST = main_mlx_test.c #//! if you want to test mlx library
 

@@ -6,12 +6,11 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 08:56:52 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/11 09:23:15 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:57:32 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
 void	init_cub3D(t_cub3D *cb)
 {
 	cb->joined_map = NULL;
@@ -25,10 +24,10 @@ void	init_cub3D(t_cub3D *cb)
 	cb->colors[C].bol = 0;
 	cb->p = 0;
 	cb->nl = 0;
-	cb->EWSN[0] = "NO";
-	cb->EWSN[1] = "SO";
-	cb->EWSN[2] = "WE";
-	cb->EWSN[3] = "EA";
+	cb->s2[0] = "NO";
+	cb->s2[1] = "SO";
+	cb->s2[2] = "WE";
+	cb->s2[3] = "EA";
 }
 
 void	ft_to_space(char *str)
@@ -87,24 +86,19 @@ int	compare(t_cub3D *cb)
 	{
 		j = 0;
 		k = 0;
-		while (cb->cnt[0][j] && cb->cnt[0][j] == cb->EWSN[i][k])
+		while (cb->cnt[0][j] && cb->cnt[0][j] == cb->s2[i][k])
 		{
 			j++;
 			k++;
 		}
-		if (!cb->cnt[0][j] && !cb->EWSN[i][k])
+		if (!cb->cnt[0][j] && !cb->s2[i][k])
 		{
 			cb->text[i].bol++;
 			cb->map_bol++;
 			if (cb->text[i].bol != 1)
 				return (1);
 			else
-			{
-				cb->text[i].texture = mlx_load_png(cb->cnt[1]);
-				if (!cb->text[i].texture)
-        			handl_errors(1);
-				// cb->text[i].path = ft_strdup(cb->cnt[1]);
-			}
+				cb->text[i].path = ft_strdup(cb->cnt[1]);
 			return (0);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 08:57:01 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/12 14:57:42 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:58:08 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	check_repeat(t_cub3D *cb)
 	int	i;
 
 	i = -1;
-	while (cb->joined_map[++i])
+	while (cb->joined_map && cb->joined_map[++i])
 	{
 		if (cb->joined_map[i] == 'N' || cb->joined_map[i] == 'S'
 			|| cb->joined_map[i] == 'W' || cb->joined_map[i] == 'E')
@@ -59,7 +59,7 @@ void	check_all_sides(char **str, int x, int y)
 		&& str[y][x] != 'N' && str[y][x] != 'S'
 		&& str[y][x] != 'W' && str[y][x] != 'E')
 	{
-		ft_free_float(str);
+		ft_free_double(str);
 		handl_errors(10);
 	}
 }
@@ -73,8 +73,8 @@ int	p_or_z(t_cub3D *cb, char c, int x, int y)
 		return (1);
 	else if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
 	{
-		cb->player.x = x * COF_PIXEL;
-		cb->player.y = y * COF_PIXEL;
+		cb->player.x = x * COF_PIXEL + (COF_PIXEL / 2);
+		cb->player.y = y * COF_PIXEL + (COF_PIXEL / 2);
 		if (c == 'N')
 			cb->angle = (3 * M_PI) / 2;
 		else if(c == 'S')
@@ -95,6 +95,14 @@ int ft_max(int a, int b)
 	return (b);
 }
 
+int	ft_limit(int x, int y)
+{
+	// printf("%d %d\n",x, y);
+	if (y < 0 || x < 0)
+		return (handl_errors(1), 0);
+	return (1);
+}
+
 void	check_valid_map(t_cub3D *cb)
 {
 	int	x;
@@ -108,13 +116,13 @@ void	check_valid_map(t_cub3D *cb)
 		x = 0;
 		while (cb->map.map_tmp[y][x])
 		{
-			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y))
+			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y) && ft_limit(x - 1, y))
 				check_all_sides(cb->map.map_tmp, x - 1, y);
-			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y))
+			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y) && ft_limit(x + 1, y))
 				check_all_sides(cb->map.map_tmp, x + 1, y);
-			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y))
+			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y) && ft_limit(x, y - 1))
 				check_all_sides(cb->map.map_tmp, x, y - 1);
-			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y))
+			if (p_or_z(cb, cb->map.map_tmp[y][x], x, y) && ft_limit(x, y + 1))
 				check_all_sides(cb->map.map_tmp, x, y + 1);
 			x++;
 		}
@@ -147,6 +155,7 @@ int	check_content(t_cub3D *cb)
 	check_valid_map(cb);
 	return (0);
 }
+
 
 // void init_cub3D(t_cub3D *cb)
 // {

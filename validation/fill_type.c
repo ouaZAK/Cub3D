@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 11:45:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/09/11 09:23:15 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 14:58:40 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 // 	int i;
 
 // 	i = -1;
-	
 // 	while (cb->text[++i].path)
 // 	{
 // 		cb->text[i].img = mlx_xpm_file_to_image(cb->mlx, cb->text[i].path, &cb->text[i].width, &cb->text[i].height);
@@ -29,27 +28,70 @@
 
 void	fill_texture(t_cub3D *cb)
 {
+	
 	int	i;
+	char *str;
 
 	i = 0;
 	ft_to_space(cb->line);
-	cb->cnt = ft_split(cb->line, ' ');
-	if (!cb->cnt)
-		handl_errors(6);
-	while (cb->cnt[i])
-		i++;
-	if (i != 2 || compare(cb))
+	cb->cnt = malloc(sizeof(char *) * 3);
+	str = ft_strtrim(cb->line, " ");
+	if (str[2] > 32)//if there is no space after NO
 	{
-		ft_free_float(cb->cnt);
+		free(str);
 		handl_errors(10);
 	}
-	// fill_texture_img(cb);
-	ft_free_float(cb->cnt);
-	
+	cb->cnt[0] = ft_substr(cb->line, 0, 2);
+	if (!cb->cnt[0])
+	{
+		ft_free_double(cb->cnt);
+		handl_errors(10);
+	}
+	cb->cnt[1] = ft_substr(cb->line, 2, ft_strlen(cb->line));
+	if (!cb->cnt[1])
+	{
+		ft_free_double(cb->cnt);
+		handl_errors(10);
+	}
+	printf("--------------------------------\n");
+	printf("str [%p]\n",str);
+	free(str);
+	printf("--------------------------------\n");
+	cb->cnt[1] = ft_strtrim(cb->cnt[1], " ");
+	cb->cnt[2] = NULL;
+	// pause();
+	// cb->cnt = ft_split(cb->line, ' ');
+	// if (!cb->cnt)
+	// 	handl_errors(6);
+	// while (cb->cnt[i])
+	// 	i++;
+	if (compare(cb))
+	{
+		// free(cb->cnt);
+		// free(cb->cnt[0]);
+		// ft_free_double(cb->cnt);
+		handl_errors(10);
+	}
+	// printf("1 [%s]\n",cb->text[i].path);
+	printf("--------------------------------\n");
+	// printf("cnt 0 [%p]  <%s>\n",cb->cnt[0], cb->cnt[0]);
+	// free(cb->cnt[0]);
+	// printf("--------------------------------\n");
+	// printf("cnt 1 [%p]  <%s>\n",cb->cnt[1], cb->cnt[1]);
+	// free(cb->cnt[1]);
+	// printf("--------------------------------\n");
+	// printf("cnt [%p]\n",cb->cnt);
+	// free(cb->cnt);
+	ft_free_double(cb->cnt);
+	printf("--------------------------------\n");
+	/*it says leaks cb->cnt but we neet to work with */
+	// ft_free_double(cb->cnt);
+	//free it to test leeks in other places
 	//########## load png in another fun 
-	// mlx_texture_t* texture = mlx_load_png(cb->text->cnt[1]);
+	// mlx_texture_t* texture = mlx_load_png(cb->text[0].path);
 	// if (!texture)
     //     handl_errors(6);
+	// printf("haha\n");
 }
 
 void ft_fill_color(t_cub3D *cb, char **RGB, int i)
@@ -61,9 +103,13 @@ void ft_fill_color(t_cub3D *cb, char **RGB, int i)
 		j++;
 	if (j != 4) // to prevent seg if there is no r g b in map
 	{
-		ft_free_float(RGB);
+		ft_free_double(RGB);
 		handl_errors(10);
 	}
+	// printf("*********************\n");
+	// printf("RGB[1] = %s\n", RGB[1]);
+	// printf("RGB[2] = %s\n", RGB[2]);
+	// printf("RGB[3] = %s\n", RGB[3]);
 	cb->colors[i].r = ft_atoi(RGB[1]);
 	cb->colors[i].g = ft_atoi(RGB[2]);
 	cb->colors[i].b = ft_atoi(RGB[3]);
@@ -73,7 +119,25 @@ void ft_fill_color(t_cub3D *cb, char **RGB, int i)
 		|| cb->colors[i].b < 0 || cb->colors[i].b > 255
 		|| cb->colors[i].g < 0 || cb->colors[i].g > 255)
 	{
-		ft_free_float(RGB);
+		ft_free_double(RGB);
+		handl_errors(10);
+	}
+	// printf("r = %d, g = %d, b = %d\n",cb->colors[i].r, cb->colors[i].g, cb->colors[i].b);
+}
+
+void	ft_count_quote(char *str)
+{
+	int	i;
+	int	count;
+
+	i = -1;
+	count = 0;
+	while (str[++i])
+		if (str[i] == ',')
+			count++;
+	if (count != 2)
+	{
+		free(str);
 		handl_errors(10);
 	}
 }
@@ -86,6 +150,7 @@ void	fill_colors(t_cub3D *cb)
 
 	i = 0;
 	j = 0;
+	ft_count_quote(cb->line);
 	ft_to_space(cb->line);
 	RGB = ft_split(cb->line, ' ');
 	if (RGB[0][0] == 'F' && !RGB[0][1] && i < 4)
@@ -94,10 +159,10 @@ void	fill_colors(t_cub3D *cb)
 		ft_fill_color(cb, RGB, C);
 	else
 	{
-		ft_free_float(RGB);
+		ft_free_double(RGB);
 		handl_errors(1);
 	}
-	ft_free_float(RGB);
+	ft_free_double(RGB);
 }
 
 void	fill_map(t_cub3D *cb)
@@ -121,7 +186,10 @@ int fill_type(t_cub3D *cb)
 		i++;
 	if (cb->line[i] == 'N' || cb->line[i] == 'S'
 		|| cb->line[i] == 'W' || cb->line[i] == 'E')
+		{
 		fill_texture(cb);
+			system("leaks -q cub3D");
+		}
 	else if (cb->line[i] == 'F' || cb->line[i] =='C')
 		fill_colors(cb);
 	else if (cb->line[i] != '\n')
