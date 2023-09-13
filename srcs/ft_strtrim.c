@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 09:56:35 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/09/13 14:47:16 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:57:16 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check(char c, char *set)
 	return (0);
 }
 
-char	*ft_strtrim(char *s1, char *set)
+char	*ft_strtrim(char *s1, char *set, int fre)
 {
 	char	*sub;
 	int		s1len;
@@ -41,7 +41,7 @@ char	*ft_strtrim(char *s1, char *set)
 	while (s1[s1len] && s1len > i && check(s1[s1len], set))
 		s1len--;
 	sub = ft_substr(s1, i, (s1len - i + 1));
-	// printf("sub [%p]  <%s>\n",sub, sub);
-	// free(s1);
+	if (fre)
+		free(s1);
 	return (sub);
 }

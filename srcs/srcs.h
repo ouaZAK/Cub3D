@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 08:34:13 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/13 11:04:42 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:56:53 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ char		*ft_strcpy(char *dst, char *src);
 int         ft_atoi(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, unsigned int start, size_t len);
-char	*ft_strtrim(char *s1, char *set);
+char	*ft_strtrim(char *s1, char *set, int fre);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 11:45:02 by zouaraqa          #+#    #+#             */
-/*   Updated: 2023/09/13 14:50:52 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:55:58 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,21 @@ void	fill_texture(t_cub3D *cb)
 	i = 0;
 	ft_to_space(cb->line);
 	cb->cnt = malloc(sizeof(char *) * 3);
-	str = ft_strtrim(cb->line, " ");
+	str = ft_strtrim(cb->line, " ", 0);
 	if (str[2] > 32)//if there is no space after NO
 	{
 		free(str);
 		handl_errors(10);
 	}
-	cb->cnt[0] = ft_substr(cb->line, 0, 2);
+	printf("----------------cnt[0]---------------\n");
+	cb->cnt[0] = ft_substr(str, 0, 2);
 	if (!cb->cnt[0])
 	{
 		ft_free_double(cb->cnt);
 		handl_errors(10);
 	}
-	cb->cnt[1] = ft_substr(cb->line, 2, ft_strlen(cb->line));
+	printf("----------------cnt[1]---------------\n");
+	cb->cnt[1] = ft_substr(str, 2, ft_strlen(str));
 	if (!cb->cnt[1])
 	{
 		ft_free_double(cb->cnt);
@@ -56,8 +58,11 @@ void	fill_texture(t_cub3D *cb)
 	printf("--------------------------------\n");
 	printf("str [%p]\n",str);
 	free(str);
-	printf("--------------------------------\n");
-	cb->cnt[1] = ft_strtrim(cb->cnt[1], " ");
+	printf("\n--------------trim------------------\n");
+	cb->cnt[1] = ft_strtrim(cb->cnt[1], " ", 1);
+	printf("cnt 1 [%p]  <%s>\n",cb->cnt[1], cb->cnt[1]);
+	printf("\n--------------trim------------------\n");
+	
 	cb->cnt[2] = NULL;
 	// pause();
 	// cb->cnt = ft_split(cb->line, ' ');
@@ -72,17 +77,17 @@ void	fill_texture(t_cub3D *cb)
 		// ft_free_double(cb->cnt);
 		handl_errors(10);
 	}
-	// printf("1 [%s]\n",cb->text[i].path);
+	printf("path [%s] addr [%p]\n",cb->text[i].path,cb->text[i].path);
 	printf("--------------------------------\n");
-	// printf("cnt 0 [%p]  <%s>\n",cb->cnt[0], cb->cnt[0]);
-	// free(cb->cnt[0]);
-	// printf("--------------------------------\n");
-	// printf("cnt 1 [%p]  <%s>\n",cb->cnt[1], cb->cnt[1]);
-	// free(cb->cnt[1]);
-	// printf("--------------------------------\n");
-	// printf("cnt [%p]\n",cb->cnt);
-	// free(cb->cnt);
-	ft_free_double(cb->cnt);
+	printf("cnt 0 [%p]  <%s>\n",cb->cnt[0], cb->cnt[0]);
+	free(cb->cnt[0]);
+	printf("--------------------------------\n");
+	printf("cnt 1 [%p]  <%s>\n",cb->cnt[1], cb->cnt[1]);
+	free(cb->cnt[1]);
+	printf("--------------------------------\n");
+	printf("cnt [%p]\n",cb->cnt);
+	free(cb->cnt);
+	// ft_free_double(cb->cnt);
 	printf("--------------------------------\n");
 	/*it says leaks cb->cnt but we neet to work with */
 	// ft_free_double(cb->cnt);

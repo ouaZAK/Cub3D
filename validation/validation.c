@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 08:57:01 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/13 14:40:37 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:56:30 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,14 +159,13 @@ int	check_content(t_cub3D *cb)
 			free(cb->line);
 			handl_errors(6);
 		}
-		free(cb->line);
-		cb->line = get_next_line(cb->fd);
-	}
-	close(cb->fd);
 	printf("-----------------out---------------\n");
 	printf("cnt 0 [%p]  <%s>\n",cb->line, cb->line);
 	free(cb->line);
 	printf("-----------------out---------------\n");
+		cb->line = get_next_line(cb->fd);
+	}
+	close(cb->fd);
 	load_text(cb);
 	check_bol(cb);
 	check_repeat(cb);
