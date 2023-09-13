@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 23:57:48 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/11 13:18:23 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:21:57 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,13 +145,13 @@ void change_angle(t_cub3D *cb, int KEY)
 {
 	if (KEY == MLX_KEY_RIGHT)
 	{
-		cb->angle += 0.05;
+		cb->angle += 0.01;
 		if (cb->angle >= 2 * M_PI)
 			cb->angle -= 2 * M_PI;
 	}
 	else if (KEY == MLX_KEY_LEFT)
 	{
-		cb->angle -= 0.05;
+		cb->angle -= 0.01;
 		if (cb->angle < 0)
 			cb->angle += 2 * M_PI;
 	}
@@ -166,70 +166,44 @@ void change_angle(t_cub3D *cb, int KEY)
 //! this function to change player position
 void change_player(t_cub3D *cb, int KEY)
 {
-	float next_x;
-	float next_y;
+	int next_x;
+	int next_y;
 	if (KEY == MLX_KEY_W)
 	{
-
-		next_x = cb->player.x + cos(cb->angle) ;
-		next_y = cb->player.y + sin(cb->angle) ;
-		
+		next_x = cb->player.x + (cos(cb->angle) * 4);
+		next_y = cb->player.y + (sin(cb->angle) * 4);
 		if(cb->map.map_tmp[(int)next_y / COF_PIXEL][(int)cb->player.x/COF_PIXEL] != '1')
 			cb->player.y = next_y;
-		
 		if(cb->map.map_tmp[(int)cb->player.y/COF_PIXEL][(int )next_x / COF_PIXEL] != '1')
 			cb->player.x = next_x;
-
-		// if(is_wall_pixel(cb, next_x, cb->player.y)) //######### check the walls like amine said
-		// {
-		// }
-		// if(is_wall_pixel(cb, cb->player.x, next_y)) //######### check the walls like amine said
-		// {
-        //     cb->player.y = next_y;
-		// }
-		// printf("the angle is %d in s\n", cb->angle);
-		// printf("the map is %c\n",cb->map.map_tmp[(int)next_y/COF_PIXEL][(int)next_x/COF_PIXEL]);
 	}
 	
 	if (KEY == MLX_KEY_S)
 	{
-		next_x = cb->player.x + cos(cb->angle + M_PI) * 0.5;
-		next_y = cb->player.y + sin(cb->angle + M_PI) * 0.5;
+		next_x = cb->player.x + (cos(cb->angle + M_PI) * 4);
+		next_y = cb->player.y + (sin(cb->angle + M_PI) * 4);
 		if(cb->map.map_tmp[(int )next_y / COF_PIXEL][(int)cb->player.x/COF_PIXEL] != '1')
 			cb->player.y = next_y;
-		
 		if(cb->map.map_tmp[(int)cb->player.y/COF_PIXEL][(int )next_x / COF_PIXEL] != '1')
 			cb->player.x = next_x;
-		
-		// printf("the map is %c\n",cb->map.map_tmp[(int)next_y/COF_PIXEL][(int)next_x/COF_PIXEL]);
-		// printf("the angle is %d in w and cos %f\n", cb->angle,cos(cb->angle));
 	}
 	if (KEY == MLX_KEY_A)
 	{
-		next_x = cb->player.x + cos(cb->angle - ( M_PI / 2)) * 0.5;
-		next_y = cb->player.y + sin(cb->angle - ( M_PI / 2)) * 0.5;
-		int y = (int )next_y / COF_PIXEL;
-		if(cb->map.map_tmp[y][(int)cb->player.x/COF_PIXEL] != '1')
+		next_x = cb->player.x + (cos(cb->angle - ( M_PI / 2)) * 4);
+		next_y = cb->player.y + (sin(cb->angle - ( M_PI / 2)) * 4);
+		if(cb->map.map_tmp[(int )next_y / COF_PIXEL][(int)cb->player.x/COF_PIXEL] != '1')
 			cb->player.y = next_y;
-		
 		if(cb->map.map_tmp[(int)cb->player.y/COF_PIXEL][(int )next_x / COF_PIXEL] != '1')
 			cb->player.x = next_x;
-		
-		// printf("the map is %c\n",cb->map.map_tmp[(int)next_y/COF_PIXEL][(int)next_x/COF_PIXEL]);
-		// printf("map x is %d, and y is %d\n",(cb->player.x/COF_PIXEL),(cb->player.y/COF_PIXEL));
 	}
 	if (KEY == MLX_KEY_D)
 	{
-		next_x = cb->player.x + cos(cb->angle +( M_PI / 2)) ;
-		next_y = cb->player.y + sin(cb->angle +( M_PI / 2)) ;
+		next_x = cb->player.x + (cos(cb->angle +( M_PI / 2)) * 4);
+		next_y = cb->player.y + (sin(cb->angle +( M_PI / 2)) * 4);
 		if(cb->map.map_tmp[(int )next_y / COF_PIXEL][(int)cb->player.x/COF_PIXEL] != '1')
 			cb->player.y = next_y;
-		
 		if(cb->map.map_tmp[(int)cb->player.y/COF_PIXEL][(int )next_x / COF_PIXEL] != '1')
 			cb->player.x = next_x;
-		
-		// printf("the angle is %d in a\n", cb->angle);
-		// printf("the map is %c\n",cb->map.map_tmp[(int)next_y/COF_PIXEL][(int)next_x/COF_PIXEL]);
 	}
 }
 
@@ -245,7 +219,6 @@ float angle_overlap(float angle)
 void	test(void *param)
 {
 	t_cub3D  *cb = param;
-
 	float hx;
 	float hy;
 	float vx;
@@ -257,8 +230,8 @@ void	test(void *param)
 	float vyblock;
 	float angle_step;
 	float atan;
-	float rx,ry;
-	float dis_w ;
+	int rx,ry;
+	float dis_w;
 	int x = cb->player.x;
 	int y = cb->player.y;
 	int i = -1;
@@ -351,6 +324,7 @@ void	test(void *param)
 		// float final_dist = cos(angle) * dis_w;
 		
 		float Projection_to_wall = ((float)WINDOW_HEIGHT/4)/-tan(30) * ((float)WINDOW_HEIGHT/dis_w);
+		Projection_to_wall *= 2;
 		// int Projection_to_wall = WINDOW_HEIGHT / final_dist * 50;//ayman
 		if (Projection_to_wall > WINDOW_HEIGHT)
 			Projection_to_wall = WINDOW_HEIGHT;

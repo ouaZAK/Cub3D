@@ -6,7 +6,7 @@
 /*   By: zouaraqa <zouaraqa@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/20 06:47:35 by yaidriss          #+#    #+#             */
-/*   Updated: 2023/09/11 14:24:57 by zouaraqa         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:05:55 by zouaraqa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ void	remove_nl(char *str);
 /*                       config functions         			  */
 /*################################################################*/
 
+//void ft_hook( mlx_key_data_t key,void* param);
 void	ft_hook(void* param);
 void	draw_C_F(t_cub3D *cb);
 void	draw_map(t_cub3D *cb);
